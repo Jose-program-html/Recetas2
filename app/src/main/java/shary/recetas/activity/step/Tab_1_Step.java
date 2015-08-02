@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 import android.speech.tts.TextToSpeech;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -62,7 +62,7 @@ public class Tab_1_Step extends Fragment implements TextToSpeech.OnInitListener{
         checkIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
         startActivityForResult(checkIntent, MY_DATA_CHECK_CODE);
         dialogBuilder = new AlertDialog.Builder(this.getActivity());
-        inflater2 = this.getLayoutInflater(savedInstanceState);
+        inflater2 = this.getActivity().getLayoutInflater();
         //set up button
         FloatingActionButton myFab = (FloatingActionButton)  rootView.findViewById(R.id.btn_voice);
         myFab.setOnClickListener(new View.OnClickListener() {
@@ -76,8 +76,12 @@ public class Tab_1_Step extends Fragment implements TextToSpeech.OnInitListener{
                 String texto = "";
                 for (int i = 0; i < listado.size(); i++) {
                     texto += listado.get(i).toLowerCase();
-                    if(i!=listado.size()){
-                        texto +="\n";
+                    if((i+1)!=listado.size()){
+                        if((i+2)==listado.size()){
+                            texto +=" y \n";
+                        }else{
+                            texto +=",\n";
+                        }
                     }
                 }
                 textView2.setText(texto);

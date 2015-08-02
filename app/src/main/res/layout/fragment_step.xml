@@ -18,9 +18,43 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_centerInParent="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/step100" />
+            android:src="@drawable/step100"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/imageView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
+            android:id="@+id/recipetitle"
+            android:layout_alignTop="@+id/imageView"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:id="@+id/recipedificult"
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/recipetitle"
+            android:layout_alignStart="@+id/recipetitle" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView2"
+            android:src="@drawable/abc_btn_rating_star_on_mtrl_alpha"
+            android:layout_marginRight="21dp"
+            android:layout_marginEnd="21dp"
+            android:layout_alignTop="@+id/recipetitle"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
 

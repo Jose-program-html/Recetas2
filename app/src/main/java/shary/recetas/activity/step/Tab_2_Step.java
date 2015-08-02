@@ -1,7 +1,6 @@
 package shary.recetas.activity.step;
 
-import android.content.DialogInterface;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,7 +12,6 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -62,7 +60,7 @@ public class Tab_2_Step extends Fragment implements TextToSpeech.OnInitListener 
         checkIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
         startActivityForResult(checkIntent, MY_DATA_CHECK_CODE);
         dialogBuilder = new AlertDialog.Builder(this.getActivity());
-        inflater2 = this.getLayoutInflater(savedInstanceState);
+        inflater2 = this.getActivity().getLayoutInflater();
         FloatingActionButton myFab = (FloatingActionButton) rootView.findViewById(R.id.btn_voice);
         myFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -75,7 +73,7 @@ public class Tab_2_Step extends Fragment implements TextToSpeech.OnInitListener 
                 String texto = "";
                 for (int i = 0; i < listado.size(); i++) {
                     texto += "Paso "+(i+1)+ ": " + listado2.get(i).toLowerCase();
-                    if(i!=listado.size()){
+                    if((i+1)!=listado.size()){
                         texto +="\n";
                     }
                 }

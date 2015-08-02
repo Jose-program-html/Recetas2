@@ -1,12 +1,14 @@
 package shary.recetas.activity;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
-import android.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -30,6 +32,7 @@ public class Main extends ActionBarActivity {
     String endpoint;
     public String titulo = "";
     private ActionBar ab;
+    Fragment fragment = null;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,8 +58,12 @@ public class Main extends ActionBarActivity {
         ab.setDisplayHomeAsUpEnabled(true);
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container_body, new HomeFragment()).commit();
-
+            fragment = new HomeFragment();
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.container_body, fragment);
+            fragmentTransaction.commit();
+            getSupportActionBar().setTitle("Home");
         }
 
         navigationView = (NavigationView) findViewById(R.id.naview);
@@ -66,50 +73,38 @@ public class Main extends ActionBarActivity {
                 int x = menuItem.getItemId();
                 String title = menuItem.getTitle().toString();
                 titulo = title;
-                try {
-                    Fragment tab1 = getFragmentManager().findFragmentById(R.id.ingredients_list_view);
-                    Fragment tab2 = getFragmentManager().findFragmentById(R.id.instruccion_list_view);
-                    if(tab1 != null || tab2 != null) {
-                        getFragmentManager().beginTransaction().remove(tab1).commit();
-                        getFragmentManager().beginTransaction().remove(tab2).commit();
-                    }
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
                 switch (x) {
                     case R.id.navigation_sub_item_1:
                         title = getString(R.string.title_home);
                         Snackbar.make(findViewById(android.R.id.content), title, Snackbar.LENGTH_SHORT).show();
-
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container_body, new HomeFragment()).commit();
-                        getSupportActionBar().setTitle(title);
+                        fragment = new HomeFragment();
                         break;
                     case R.id.navigation_sub_item_2:
-
                         title = getString(R.string.title_recetas);
                         Snackbar.make(findViewById(android.R.id.content), title, Snackbar.LENGTH_SHORT).show();
-
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container_body, new RecetasFragment()).commit();
-                        getSupportActionBar().setTitle(title);
+                        fragment = new RecetasFragment();
                         break;
                     case R.id.navigation_sub_item_3:
-
                         title = getString(R.string.title_ingredientes);
                         Snackbar.make(findViewById(android.R.id.content), title, Snackbar.LENGTH_SHORT).show();
-
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container_body, new IngredientesFragment()).commit();
-                        getSupportActionBar().setTitle(title);
+                        fragment = new IngredientesFragment();
                         break;
                     case R.id.navigation_sub_item_4:
-
                         title = getString(R.string.title_favoritos);
                         Snackbar.make(findViewById(android.R.id.content), title, Snackbar.LENGTH_SHORT).show();
-
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container_body, new FavoritosFragment()).commit();
-                        getSupportActionBar().setTitle(title);
+                        fragment = new FavoritosFragment();
                         break;
                     default:
                         break;
+                }
+
+                if (fragment != null) {
+
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.add(R.id.container_body, fragment);
+                    fragmentTransaction.commit();
+                    getSupportActionBar().setTitle(title);
                 }
 
                 Log.d("MENU ITEM", menuItem.getTitle().toString());
