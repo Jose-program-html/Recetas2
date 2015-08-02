@@ -19,7 +19,7 @@ public class Querys {
     public String[] values;
     public AdminSQLiteOpenHelper admin;
     public Variables variables;
-    public static List<String> lista, lista1, lista2;
+    public List<String> lista, lista1;
     public String informacionEscuela = "";
 
     public Querys(Context context, String table) {
@@ -54,7 +54,6 @@ public class Querys {
         String[] valor = new String[columnas.length];
         lista = new ArrayList<String>();
         lista1 = new ArrayList<String>();
-        lista2 = new ArrayList<String>();
         try {
             String selectQuery = "SELECT  *FROM " + this.tableName + " WHERE " + clausula + "=?";
             ;
@@ -69,7 +68,6 @@ public class Querys {
                     }
                     lista.add(valor[numColumna]);
                     lista1.add(valor[3]);
-                    lista2.add(valor[7]);
                 } while (cursor.moveToNext());
             }
             cursor.close();

@@ -10,7 +10,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="title_activity_prueba2">Prueba2</string>
-    <string name="api_endpoint">http://192.168.1.71:9000</string>
+    <string name="api_endpoint">http://192.168.0.7:9000</string>
     <!--<string name="api_endpoint">http://192.168.103.29:9000</string>-->
     <string name="title_activity_prueba_json">pruebaJson</string>
     <string name="title_activity_recicler">Recicler</string>
