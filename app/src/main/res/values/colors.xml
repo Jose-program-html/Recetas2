@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#805115</color>
+    <color name="colorPrimaryDark">#552F00</color>
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="windowBackground">#FFD9AA</color>
+    <color name="navigationBarColor">#000000</color>
+    <color name="colorAccent">#D4A56A</color>
+    <color name="colorBack">#AA7839</color>
+
+    <!--<color name="ColorPrimary">#00897B</color>
+    <color name="ColorPrimaryDark">#00695C</color>-->
+    <color name="tabsScrollColor">#EF4E0A</color>
+
+</resources>

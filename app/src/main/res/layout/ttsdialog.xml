@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/windowBackground">
+
+    <TextView
+        android:id="@+id/txtviewdiagtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="5dp"
+        android:text="Texto de pasos o ingredientes"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@+id/txtviewdiagtitle">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/txtviewdiagtext"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="40dp"
+                android:text="datos de ingredientes o pasos"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/colorBack" />
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btndiag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/scrollView"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorAccent"
+        android:text="Detener" />
+</RelativeLayout>
