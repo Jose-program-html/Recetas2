@@ -48,7 +48,7 @@ public class Records {
                     cadena = recipes.get(i).getId() + "-" + recipes.get(i).getNombre()
                             + "-" + recipes.get(i).getTipo() + "-" + recipes.get(i).getCategoria()
                             + "-" + recipes.get(i).getDuracion() + "-" + recipes.get(i).getPorcion() + "-" +
-                            recipes.get(i).getNombreimagen() + "-" + recipes.get(i).getBase64() + "-" + "0";
+                            recipes.get(i).getNombreimagen() + "-" + recipes.get(i).getBase64() + "-" + "1";
 
                     querys.insertar(columnas.getColumnsTableRecipe(), cadena.toUpperCase());
                     System.out.println("CADENA RECETA " + cadena);

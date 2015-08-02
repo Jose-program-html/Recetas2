@@ -1,12 +1,12 @@
 package shary.recetas.activity.ingredients;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import shary.recetas.R;
-import shary.recetas.activity.RecetasBusquedaFragment;
+import shary.recetas.activity.RecyclerRecetaBusqueda;
 import shary.recetas.activity.SQLite.Variables;
 
 /**
@@ -58,7 +58,7 @@ public class Tab_Busqueda extends Fragment {
                 + busquedaL
                 + busquedaO;
         if (!busqueda.equals("")) {
-            busqueda=busqueda.replace("-",", ");
+            busqueda = busqueda.replace("-", ", ");
             busqueda = busqueda.substring(0, busqueda.length() - 2);
             listadoIng.setText(busqueda);
             buscar.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +66,7 @@ public class Tab_Busqueda extends Fragment {
                 public void onClick(View v) {
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    Fragment fragment = new RecetasBusquedaFragment();
+                    Fragment fragment = new RecyclerRecetaBusqueda();
                     fragmentTransaction.replace(R.id.container_body, fragment);
                     fragmentTransaction.commit();
                     ((ActionBarActivity) rootView.getContext()).getSupportActionBar().setTitle("Busqueda Receta");

@@ -126,7 +126,6 @@ public class RecetasBusquedaFragment extends Fragment {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Fragment fragment = new PasosFragment();
-
         fragmentTransaction.add(R.id.container_body, fragment);
         fragmentTransaction.commit();
 

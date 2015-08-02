@@ -25,11 +25,9 @@
 
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/recipes_list_view"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fontFamily="Times New Roman"
-        android:padding="20dp"
-        android:textSize="10sp" />
+        android:scrollbars="vertical" />
 </LinearLayout>

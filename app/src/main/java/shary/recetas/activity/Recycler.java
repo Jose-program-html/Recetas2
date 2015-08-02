@@ -1,8 +1,8 @@
 package shary.recetas.activity;
 
 
-import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -73,10 +73,11 @@ public class Recycler extends Fragment {
         layoutManager = new LinearLayoutManager(rootView.getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new RVAdapter(items);
+        adapter = new RVAdapter(items, recyclerView);
         recyclerView.setAdapter(adapter);
         return rootView;
     }
+
 
     public void desayuno() {
         Querys querys = new Querys(rootView.getContext(), "recipe");
