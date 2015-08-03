@@ -33,10 +33,14 @@ public class Tab_Recipes extends Fragment {
 
     public static Tab_Recipes newInstance(int i) {
         Tab_Recipes myFragment = new Tab_Recipes();
-        Bundle args = new Bundle();
-        args.putInt("someInt", i);
-        myFragment.setArguments(args);
-        System.out.println("AQUI CONTRUCTOR " + i);
+        try {
+            Bundle args = new Bundle();
+            args.putInt("someInt", i);
+            myFragment.setArguments(args);
+            System.out.println("AQUI CONTRUCTOR " + i);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return myFragment;
     }
 
@@ -44,130 +48,160 @@ public class Tab_Recipes extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.tab_recipes, container, false);
         recipeListView = (ListView) rootView.findViewById(R.id.recipes_list_view);
-        switch (getArguments().getInt("someInt")) {
-            case 0:
-                desayuno();
-                break;
-            case 1:
-                pasta();
-                break;
-            case 2:
-                entrada();
-                break;
-            case 3:
-                platoFuerte();
-                break;
-            case 4:
-                postre();
-                break;
+        try {
+            switch (getArguments().getInt("someInt")) {
+                case 0:
+                    desayuno();
+                    break;
+                case 1:
+                    pasta();
+                    break;
+                case 2:
+                    entrada();
+                    break;
+                case 3:
+                    platoFuerte();
+                    break;
+                case 4:
+                    postre();
+                    break;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return rootView;
     }
 
     public void getIdRecipe(int position) {
-        Querys querys = new Querys(rootView.getContext(), "recipe");
-        querys.listado(columnsTable.getColumnsTableRecipe(), 0, "nombre", recipeListView.getItemAtPosition(position).toString());
-        listado = querys.lista;
-        System.out.println("AQUI ID RECETA " + listado.get(0).toString());
-        SharedPreferences sharedPreferences = rootView.getContext().getSharedPreferences("Receta", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("idReceta", listado.get(0).toString());
-        editor.commit();
+        try {
+            Querys querys = new Querys(rootView.getContext(), "recipe");
+            querys.listado(columnsTable.getColumnsTableRecipe(), 0, "nombre", recipeListView.getItemAtPosition(position).toString());
+            listado = querys.lista;
+            System.out.println("AQUI ID RECETA " + listado.get(0).toString());
+            SharedPreferences sharedPreferences = rootView.getContext().getSharedPreferences("Receta", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("idReceta", listado.get(0).toString());
+            editor.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void getInstruccions() {
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        Fragment fragment = new PasosFragment();
-        fragmentTransaction.add(R.id.container_body, fragment);
-        fragmentTransaction.commit();
-
-        //getFragmentManager().beginTransaction().replace(R.id.container_body, new HomeFragment()).commit();
-        ((ActionBarActivity) rootView.getContext()).getSupportActionBar().setTitle("Receta");
+        try {
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            Fragment fragment = new PasosFragment();
+            fragmentTransaction.add(R.id.container_body, fragment);
+            fragmentTransaction.commit();
+            ((ActionBarActivity) rootView.getContext()).getSupportActionBar().setTitle("Receta");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void desayuno() {
-        Querys querys = new Querys(rootView.getContext(), "recipe");
-        querys.listado(columnsTable.getColumnsTableRecipe(), 1, "tipo", "DESAYUNO");
-        listado = querys.lista;
+        try {
+            Querys querys = new Querys(rootView.getContext(), "recipe");
+            querys.listado(columnsTable.getColumnsTableRecipe(), 1, "tipo", "DESAYUNO");
+            listado = querys.lista;
 
-        ArrayAdapter<String> itemsAdapter =
-                new ArrayAdapter<String>(rootView.getContext(),android.R.drawable.star_big_on, android.R.layout.simple_list_item_1, listado);
-        recipeListView.setAdapter(itemsAdapter);
-        recipeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getIdRecipe(position);
-                getInstruccions();
-            }
-        });
+            ArrayAdapter<String> itemsAdapter =
+                    new ArrayAdapter<String>(rootView.getContext(), android.R.drawable.star_big_on, android.R.layout.simple_list_item_1, listado);
+            recipeListView.setAdapter(itemsAdapter);
+            recipeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    getIdRecipe(position);
+                    getInstruccions();
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void pasta() {
-        Querys querys = new Querys(rootView.getContext(), "recipe");
-        querys.listado(columnsTable.getColumnsTableRecipe(), 1, "tipo", "PASTA");
-        listado = querys.lista;
+        try {
+            Querys querys = new Querys(rootView.getContext(), "recipe");
+            querys.listado(columnsTable.getColumnsTableRecipe(), 1, "tipo", "PASTA");
+            listado = querys.lista;
 
-        ArrayAdapter<String> itemsAdapter =
-                new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_list_item_1, listado);
-        recipeListView.setAdapter(itemsAdapter);
-        recipeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getIdRecipe(position);
-                getInstruccions();
-            }
-        });
+            ArrayAdapter<String> itemsAdapter =
+                    new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_list_item_1, listado);
+            recipeListView.setAdapter(itemsAdapter);
+            recipeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    getIdRecipe(position);
+                    getInstruccions();
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void entrada() {
-        Querys querys = new Querys(rootView.getContext(), "recipe");
-        querys.listado(columnsTable.getColumnsTableRecipe(), 1, "tipo", "ENTRADA");
-        listado = querys.lista;
+        try {
+            Querys querys = new Querys(rootView.getContext(), "recipe");
+            querys.listado(columnsTable.getColumnsTableRecipe(), 1, "tipo", "ENTRADA");
+            listado = querys.lista;
 
-        ArrayAdapter<String> itemsAdapter =
-                new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_list_item_1, listado);
-        recipeListView.setAdapter(itemsAdapter);
-        recipeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getIdRecipe(position);
-                getInstruccions();
-            }
-        });
+            ArrayAdapter<String> itemsAdapter =
+                    new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_list_item_1, listado);
+            recipeListView.setAdapter(itemsAdapter);
+            recipeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    getIdRecipe(position);
+                    getInstruccions();
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void platoFuerte() {
-        Querys querys = new Querys(rootView.getContext(), "recipe");
-        querys.listado(columnsTable.getColumnsTableRecipe(), 1, "tipo", "PLATO FUERTE");
-        listado = querys.lista;
+        try {
+            Querys querys = new Querys(rootView.getContext(), "recipe");
+            querys.listado(columnsTable.getColumnsTableRecipe(), 1, "tipo", "PLATO FUERTE");
+            listado = querys.lista;
 
-        ArrayAdapter<String> itemsAdapter =
-                new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_list_item_1, listado);
-        recipeListView.setAdapter(itemsAdapter);
-        recipeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getIdRecipe(position);
-                getInstruccions();
-            }
-        });
+            ArrayAdapter<String> itemsAdapter =
+                    new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_list_item_1, listado);
+            recipeListView.setAdapter(itemsAdapter);
+            recipeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    getIdRecipe(position);
+                    getInstruccions();
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void postre() {
-        Querys querys = new Querys(rootView.getContext(), "recipe");
-        querys.listado(columnsTable.getColumnsTableRecipe(), 1, "tipo", "POSTRE");
-        listado = querys.lista;
+        try {
+            Querys querys = new Querys(rootView.getContext(), "recipe");
+            querys.listado(columnsTable.getColumnsTableRecipe(), 1, "tipo", "POSTRE");
+            listado = querys.lista;
 
-        ArrayAdapter<String> itemsAdapter =
-                new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_list_item_1, listado);
-        recipeListView.setAdapter(itemsAdapter);
-        recipeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getIdRecipe(position);
-                getInstruccions();
-            }
-        });
+            ArrayAdapter<String> itemsAdapter =
+                    new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_list_item_1, listado);
+            recipeListView.setAdapter(itemsAdapter);
+            recipeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    getIdRecipe(position);
+                    getInstruccions();
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

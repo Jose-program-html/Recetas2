@@ -32,15 +32,19 @@ public class IngredientesFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_ingredientes, container, false);
 
         // Get the ViewPager and set it's PagerAdapter so that it can display items
-        ViewPager viewPager = (ViewPager) rootView.findViewById(R.id.viewpager);
-        viewPager.setAdapter(new ViewPagerAdapter(getFragmentManager(),
-                rootView, titles, 1, 9));
+        try {
+            ViewPager viewPager = (ViewPager) rootView.findViewById(R.id.viewpager);
+            viewPager.setAdapter(new ViewPagerAdapter(getFragmentManager(),
+                    rootView, titles, 1, 9));
 
-        // Give the TabLayout the ViewPager
-        TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.sliding_tabs);
-        tabLayout.setupWithViewPager(viewPager);
-        // Inflate the layout for this fragment
-        setRetainInstance(true);
+            // Give the TabLayout the ViewPager
+            TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.sliding_tabs);
+            tabLayout.setupWithViewPager(viewPager);
+            // Inflate the layout for this fragment
+            setRetainInstance(true);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return rootView;
     }
 

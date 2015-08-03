@@ -42,40 +42,48 @@ public class Tab_6 extends Fragment {
     }
 
     public void lacteo() {
-        Querys querys = new Querys(rootView.getContext(), "ingredients");
-        querys.listadoDistict("nombre", 0, "clasificacion", "LACTEO");
-        listado = querys.lista;
+        try {
+            Querys querys = new Querys(rootView.getContext(), "ingredients");
+            querys.listadoDistict("nombre", 0, "clasificacion", "LACTEO");
+            listado = querys.lista;
 
-        ArrayAdapter<String> itemsAdapter =
-                new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_list_item_multiple_choice, listado);
-        ingredientsListView.setAdapter(itemsAdapter);
-        ingredientsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        ingredientsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CheckedTextView checkedTextView = ((CheckedTextView) view);
-                if (checkedTextView.isChecked() == true) {
-                    verificar();
-                } else {
-                    verificar();
+            ArrayAdapter<String> itemsAdapter =
+                    new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_list_item_multiple_choice, listado);
+            ingredientsListView.setAdapter(itemsAdapter);
+            ingredientsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+            ingredientsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    CheckedTextView checkedTextView = ((CheckedTextView) view);
+                    if (checkedTextView.isChecked() == true) {
+                        verificar();
+                    } else {
+                        verificar();
+                    }
                 }
-            }
-        });
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 
     public void verificar() {
-        lacteos = "";
-        for (int i = 0; i < listado.size(); i++) {
-            if (ingredientsListView.getCheckedItemPositions().get(i) == true) {
-                lacteos += ingredientsListView.getItemAtPosition(i).toString() + "-";
+        try {
+            lacteos = "";
+            for (int i = 0; i < listado.size(); i++) {
+                if (ingredientsListView.getCheckedItemPositions().get(i) == true) {
+                    lacteos += ingredientsListView.getItemAtPosition(i).toString() + "-";
+                }
             }
+            variables.setLacteo(lacteos);
+            System.out.println("lacteos " + variables.getLacteo());
+            sharedPreferences = rootView.getContext().getSharedPreferences("Ingredients", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("Lacteos", variables.getLacteo());
+            editor.commit();
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        variables.setLacteo(lacteos);
-        System.out.println("lacteos " + variables.getLacteo());
-        sharedPreferences = rootView.getContext().getSharedPreferences("Ingredients", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("Lacteos", variables.getLacteo());
-        editor.commit();
     }
 }
