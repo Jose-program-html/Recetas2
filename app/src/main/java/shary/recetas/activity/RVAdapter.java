@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import shary.recetas.R;
@@ -25,14 +27,15 @@ import shary.recetas.activity.SQLite.Variables;
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecetaViewHolder> {
     private List<RecetaAux> items;
     RecyclerView recyclerView;
+    View context;
     public String recipeNemeAux = "";
     ColumnsTable columnsTable = new ColumnsTable();
     Variables variables = new Variables();
     public List<String> listado;
 
-    public RVAdapter(List<RecetaAux> items, RecyclerView recyclerView) {
+    public RVAdapter(List<RecetaAux> items, View context) {
         this.items = items;
-        this.recyclerView = recyclerView;
+        this.context=context;
     }
 
     @Override
@@ -44,7 +47,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecetaViewHolder> 
 
     @Override
     public void onBindViewHolder(RecetaViewHolder holder, int position) {
-        holder.recipePhoto.setImageResource(items.get(position).getIdPhoto());
+        Picasso.with(context.getContext()).load(items.get(position).getPhoto()).into(holder.recipePhoto);
         holder.recipeName.setText(items.get(position).getName());
         holder.recipeCategory.setText(items.get(position).getCategory());
     }

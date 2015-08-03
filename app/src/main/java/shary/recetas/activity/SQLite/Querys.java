@@ -19,7 +19,7 @@ public class Querys {
     public String[] values;
     public AdminSQLiteOpenHelper admin;
     public Variables variables;
-    public List<String> lista, lista1,lista2;
+    public List<String> lista, lista1,lista2,lista3;
     public String informacionEscuela = "";
 
     public Querys(Context context, String table) {
@@ -69,7 +69,7 @@ public class Querys {
                     }
                     lista.add(valor[numColumna]);
                     lista1.add(valor[3]);
-                    lista1.add(valor[7]);
+                    lista2.add(valor[8]);
                 } while (cursor.moveToNext());
             }
             cursor.close();

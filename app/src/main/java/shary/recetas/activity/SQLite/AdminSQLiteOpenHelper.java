@@ -20,6 +20,7 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
     private static final String RECIPE_PORCION = "porcion";
     private static final String RECIPE_IMG = "nombreimagen";
     private static final String RECIPE_BASE64 = "base64";
+    private static final String RECIPE_URL = "url";
     private static final String RECIPE_FAV = "favorito";
 
 
@@ -55,6 +56,7 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
                 + RECIPE_PORCION + " INTEGER,"
                 + RECIPE_IMG + " TEXT,"
                 + RECIPE_BASE64 + " TEXT,"
+                + RECIPE_URL+ " TEXT,"
                 + RECIPE_FAV + " INTEGER" + ")";
 
         String CREATE_INGREDIENTS_TABLE = "CREATE TABLE " + TABLE_INGREDIENTS + "("

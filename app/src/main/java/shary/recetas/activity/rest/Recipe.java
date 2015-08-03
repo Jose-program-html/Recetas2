@@ -12,6 +12,7 @@ public class Recipe {
     private Integer porcion;
     private String nombreimagen;
     private String base64;
+    private String url;
 
     
     public Integer getId() {
@@ -76,5 +77,13 @@ public class Recipe {
 
     public void setBase64(String base64) {
         this.base64 = base64;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

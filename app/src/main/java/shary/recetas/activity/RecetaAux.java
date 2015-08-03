@@ -4,14 +4,22 @@ package shary.recetas.activity;
  * Created by Shary on 25/07/2015.
  */
 public class RecetaAux {
-    Integer idPhoto;
+    String photo;
     String name;
     String category;
 
-    public RecetaAux(Integer idPhoto, String name, String category) {
-        this.idPhoto = idPhoto;
+    public RecetaAux(String photo, String name, String category) {
+        this.photo = photo;
         this.name = name;
         this.category = category;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public String getName() {
@@ -28,13 +36,5 @@ public class RecetaAux {
 
     public void setCategory(String category) {
         this.category = category;
-    }
-
-    public Integer getIdPhoto() {
-        return idPhoto;
-    }
-
-    public void setIdPhoto(Integer idPhoto) {
-        this.idPhoto = idPhoto;
     }
 }

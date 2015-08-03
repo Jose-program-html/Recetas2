@@ -5,7 +5,7 @@ package shary.recetas.activity.SQLite;
  */
 public class ColumnsTable {
     private String[] columnsTableRecipe = {"id", "nombre", "tipo", "categoria", "duracion", "porcion",
-            "nombreimagen", "base64", "favorito"};
+            "nombreimagen", "base64", "url", "favorito"};
     private String[] columnsTableIngredients = {"id", "nombre", "cantidad", "clasificacion", "recipe_id"};
     private String[] columnsTableIngredientsOther = {"nombre", "clasificacion"};
     private String[] columnsTableStep = {"id", "paso", "paso_descripcion", "id_step_recipe_id"};

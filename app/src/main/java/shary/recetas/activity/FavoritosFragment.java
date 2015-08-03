@@ -25,6 +25,7 @@ public class FavoritosFragment extends Fragment {
     ColumnsTable columnsTable = new ColumnsTable();
     public List<String> listado;
     public List<String> listado2;
+    public List<String> listado3;
     View rootView;
 
 
@@ -36,7 +37,9 @@ public class FavoritosFragment extends Fragment {
         recetas();
         List items = new ArrayList();
         for (int i = 0; i < listado.size(); i++) {
-            items.add(new RecetaAux(R.drawable.favourite24, listado.get(i).toString(), listado2.get(i).toString()));
+            String url = "http://192.168.0.7:9000".concat(listado3.get(i).toString().toLowerCase());
+            System.out.println("URL " + url);
+            items.add(new RecetaAux(url, listado.get(i).toString(), listado2.get(i).toString()));
         }
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
@@ -55,5 +58,6 @@ public class FavoritosFragment extends Fragment {
         querys.listado(columnsTable.getColumnsTableRecipe(), 1, "favorito", "1");
         listado = querys.lista;
         listado2 = querys.lista1;
+        listado3=querys.lista2;
     }
 }

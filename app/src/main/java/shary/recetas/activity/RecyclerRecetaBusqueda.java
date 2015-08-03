@@ -28,7 +28,8 @@ public class RecyclerRecetaBusqueda extends Fragment {
     public List<String> listado;
     public List<String> listado2;
     public List<String> listado3;
-    ArrayList<String> array3, array4;
+    public List<String> listado4;
+    ArrayList<String> array3, array4, array5;
 
     String busquedaF;
     String busquedaV;
@@ -75,7 +76,9 @@ public class RecyclerRecetaBusqueda extends Fragment {
         System.out.println("TOTAL " + listado.size());
         List items = new ArrayList();
         for (int i = 0; i < array3.size(); i++) {
-            items.add(new RecetaAux(R.drawable.favourite24, array3.get(i).toString(), array4.get(i).toString()));
+            String url = "http://192.168.0.7:9000".concat(array5.get(i).toString().toLowerCase());
+            System.out.println("URL " + url);
+            items.add(new RecetaAux(url, array3.get(i).toString(), array4.get(i).toString()));
         }
 
 
@@ -85,7 +88,7 @@ public class RecyclerRecetaBusqueda extends Fragment {
         layoutManager = new LinearLayoutManager(rootView.getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new RVAdapter(items, recyclerView);
+        adapter = new RVAdapter(items, rootView);
         recyclerView.setAdapter(adapter);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -101,13 +104,16 @@ public class RecyclerRecetaBusqueda extends Fragment {
 
         array3 = new ArrayList<String>(listado.size());
         array4 = new ArrayList<String>(listado.size());
+        array5 = new ArrayList<String>(listado.size());
         for (int i = 0; i < listado.size(); i++) {
             querys = new Querys(rootView.getContext(), "recipe");
             querys.listado(columnsTable.getColumnsTableRecipe(), 1, "id", listado.get(i).toString());
             listado2 = querys.lista;
             listado3 = querys.lista1;
+            listado4 = querys.lista2;
             array3.add(listado2.get(0).toString());
             array4.add((listado3.get(0).toString()));
+            array5.add((listado4.get(0).toString()));
         }
     }
 }
