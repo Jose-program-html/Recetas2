@@ -69,12 +69,17 @@ public class Querys {
                     }
                     lista.add(valor[numColumna]);
                     lista1.add(valor[3]);
-                    lista2.add(valor[8]);
+                    try {
+                        lista2.add(valor[8]);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                 } while (cursor.moveToNext());
             }
             cursor.close();
             bd.close();
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

@@ -67,26 +67,30 @@ public class Tab_1_Step extends Fragment implements TextToSpeech.OnInitListener{
         FloatingActionButton myFab = (FloatingActionButton)  rootView.findViewById(R.id.btn_voice);
         myFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                alert();
-                Locale loc = new Locale("spa", "MEX");
-                t1.setLanguage(loc);
-                Querys querys = new Querys(rootView.getContext(), "ingredients");
-                querys.listado(columnsTable.getColumnsTableIngredients(), 1, "recipe_id", getIdRecipe());
-                listado = querys.lista;
-                String texto = "";
-                for (int i = 0; i < listado.size(); i++) {
-                    texto += listado.get(i).toLowerCase();
-                    if((i+1)!=listado.size()){
-                        if((i+2)==listado.size()){
-                            texto +=" y \n";
-                        }else{
-                            texto +=",\n";
+                try {
+                    alert();
+                    Locale loc = new Locale("spa", "MEX");
+                    t1.setLanguage(loc);
+                    Querys querys = new Querys(rootView.getContext(), "ingredients");
+                    querys.listado(columnsTable.getColumnsTableIngredients(), 1, "recipe_id", getIdRecipe());
+                    listado = querys.lista;
+                    String texto = "";
+                    for (int i = 0; i < listado.size(); i++) {
+                        texto += listado.get(i).toLowerCase();
+                        if ((i + 1) != listado.size()) {
+                            if ((i + 2) == listado.size()) {
+                                texto += " y \n";
+                            } else {
+                                texto += ",\n";
+                            }
                         }
                     }
+                    textView2.setText(texto);
+                    t1.speak(texto, TextToSpeech.QUEUE_FLUSH, null);
+                    dlg = dialogBuilder.show();
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
-                textView2.setText(texto);
-                t1.speak(texto, TextToSpeech.QUEUE_FLUSH, null);
-                dlg = dialogBuilder.show();
             }
         });
         ingredientes();
@@ -94,62 +98,74 @@ public class Tab_1_Step extends Fragment implements TextToSpeech.OnInitListener{
     }
 
     public String getIdRecipe() {
-        SharedPreferences sharedPreferences = rootView.getContext().getSharedPreferences("Receta", Context.MODE_PRIVATE);
-        id = sharedPreferences.getString("idReceta", "Nada");
-        System.out.println("ID DE RECETA A BUSCAR " + id);
+        try {
+            SharedPreferences sharedPreferences = rootView.getContext().getSharedPreferences("Receta", Context.MODE_PRIVATE);
+            id = sharedPreferences.getString("idReceta", "Nada");
+            System.out.println("ID DE RECETA A BUSCAR " + id);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return id;
     }
 
     public void alert(){
-        dialogView = inflater2.inflate(R.layout.ttsdialog, null);
-        dialogBuilder.setView(dialogView);
-        dialogBuilder.setCancelable(false);
-        textView = (TextView) dialogView.findViewById(R.id.txtviewdiagtitle);
-        textView.setText("Ingredientes");
-        textView2 = (TextView) dialogView.findViewById(R.id.txtviewdiagtext);
-        Button btn = (Button) dialogView.findViewById(R.id.btndiag);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                t1.stop();
-                dlg.dismiss();
-            }
-        });
+        try {
+            dialogView = inflater2.inflate(R.layout.ttsdialog, null);
+            dialogBuilder.setView(dialogView);
+            dialogBuilder.setCancelable(false);
+            textView = (TextView) dialogView.findViewById(R.id.txtviewdiagtitle);
+            textView.setText("Ingredientes");
+            textView2 = (TextView) dialogView.findViewById(R.id.txtviewdiagtext);
+            Button btn = (Button) dialogView.findViewById(R.id.btndiag);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    t1.stop();
+                    dlg.dismiss();
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void ingredientes() {
-        Querys querys = new Querys(rootView.getContext(), "ingredients");
-        querys.listado(columnsTable.getColumnsTableIngredients(), 1, "recipe_id", getIdRecipe());
-        listado = querys.lista;
-        querys.listado(columnsTable.getColumnsTableIngredients(), 2, "recipe_id", getIdRecipe());
-        listado2 = querys.lista;
-        ArrayList<String> array3 = new ArrayList<String>(listado.size());
-        for (int i = 0; i < listado.size(); i++) {
-            array3.add(listado2.get(i) + " " + listado.get(i));
+        try {
+            Querys querys = new Querys(rootView.getContext(), "ingredients");
+            querys.listado(columnsTable.getColumnsTableIngredients(), 1, "recipe_id", getIdRecipe());
+            listado = querys.lista;
+            querys.listado(columnsTable.getColumnsTableIngredients(), 2, "recipe_id", getIdRecipe());
+            listado2 = querys.lista;
+            ArrayList<String> array3 = new ArrayList<String>(listado.size());
+            for (int i = 0; i < listado.size(); i++) {
+                array3.add(listado2.get(i) + " " + listado.get(i));
+            }
+            ArrayAdapter<String> itemsAdapter =
+                    new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_list_item_1, array3);
+            ingredientsListView.setAdapter(itemsAdapter);
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        ArrayAdapter<String> itemsAdapter =
-                new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_list_item_1, array3);
-        ingredientsListView.setAdapter(itemsAdapter);
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        if (requestCode == MY_DATA_CHECK_CODE)
-        {
-            if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS)
-            {
-                // success, create the TTS instance
-                t1 = new TextToSpeech(getActivity(), this);
-                t1.setLanguage(Locale.getDefault());
+        try {
+            if (requestCode == MY_DATA_CHECK_CODE) {
+                if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
+                    // success, create the TTS instance
+                    t1 = new TextToSpeech(getActivity(), this);
+                    t1.setLanguage(Locale.getDefault());
+                } else {
+                    // missing data, install it
+                    Intent installIntent = new Intent();
+                    installIntent.setAction(
+                            TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+                    startActivity(installIntent);
+                }
             }
-            else
-            {
-                // missing data, install it
-                Intent installIntent = new Intent();
-                installIntent.setAction(
-                        TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
-                startActivity(installIntent);
-            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

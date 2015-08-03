@@ -64,22 +64,26 @@ public class Tab_2_Step extends Fragment implements TextToSpeech.OnInitListener 
         FloatingActionButton myFab = (FloatingActionButton) rootView.findViewById(R.id.btn_voice);
         myFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                alert();
-                Locale loc = new Locale("spa", "MEX");
-                t1.setLanguage(loc);
-                Querys querys = new Querys(rootView.getContext(), "step");
-                querys.listado(columnsTable.getColumnsTableStep(), 2, "id_step_recipe_id", getIdRecipe());
-                listado2 = querys.lista;
-                String texto = "";
-                for (int i = 0; i < listado.size(); i++) {
-                    texto += "Paso "+(i+1)+ ": " + listado2.get(i).toLowerCase();
-                    if((i+1)!=listado.size()){
-                        texto +="\n";
+                try {
+                    alert();
+                    Locale loc = new Locale("spa", "MEX");
+                    t1.setLanguage(loc);
+                    Querys querys = new Querys(rootView.getContext(), "step");
+                    querys.listado(columnsTable.getColumnsTableStep(), 2, "id_step_recipe_id", getIdRecipe());
+                    listado2 = querys.lista;
+                    String texto = "";
+                    for (int i = 0; i < listado.size(); i++) {
+                        texto += "Paso " + (i + 1) + ": " + listado2.get(i).toLowerCase();
+                        if ((i + 1) != listado.size()) {
+                            texto += "\n";
+                        }
                     }
+                    textView2.setText(texto);
+                    t1.speak(texto, TextToSpeech.QUEUE_FLUSH, null);
+                    dlg = dialogBuilder.show();
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
-                textView2.setText(texto);
-                t1.speak(texto, TextToSpeech.QUEUE_FLUSH, null);
-                dlg = dialogBuilder.show();
             }
         });
         instrucciones();
@@ -87,77 +91,97 @@ public class Tab_2_Step extends Fragment implements TextToSpeech.OnInitListener 
     }
 
     public String getIdRecipe() {
-        SharedPreferences sharedPreferences = rootView.getContext().getSharedPreferences("Receta", Context.MODE_PRIVATE);
-        id = sharedPreferences.getString("idReceta", "Nada");
-        System.out.println("ID DE RECETA A BUSCAR " + id);
+        try {
+            SharedPreferences sharedPreferences = rootView.getContext().getSharedPreferences("Receta", Context.MODE_PRIVATE);
+            id = sharedPreferences.getString("idReceta", "Nada");
+            System.out.println("ID DE RECETA A BUSCAR " + id);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return id;
     }
 
     public void instrucciones() {
-        Querys querys = new Querys(rootView.getContext(), "step");
-        querys.listado(columnsTable.getColumnsTableStep(), 1, "id_step_recipe_id", getIdRecipe());
-        listado = querys.lista;
-        querys.listado(columnsTable.getColumnsTableStep(), 2, "id_step_recipe_id", getIdRecipe());
-        listado2 = querys.lista;
+        try {
+            Querys querys = new Querys(rootView.getContext(), "step");
+            querys.listado(columnsTable.getColumnsTableStep(), 1, "id_step_recipe_id", getIdRecipe());
+            listado = querys.lista;
+            querys.listado(columnsTable.getColumnsTableStep(), 2, "id_step_recipe_id", getIdRecipe());
+            listado2 = querys.lista;
 
-        ArrayList<String> array3 = new ArrayList<String>(listado.size());
-        for (int i = 0; i < listado.size(); i++) {
-            array3.add(listado.get(i) + ".- " + listado2.get(i));
+            ArrayList<String> array3 = new ArrayList<String>(listado.size());
+            for (int i = 0; i < listado.size(); i++) {
+                array3.add(listado.get(i) + ".- " + listado2.get(i));
+            }
+
+            ArrayAdapter<String> itemsAdapter =
+                    new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_list_item_1, array3);
+            ingredientsListView.setAdapter(itemsAdapter);
+        }catch (Exception e){
+            e.printStackTrace();
         }
-
-        ArrayAdapter<String> itemsAdapter =
-                new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_list_item_1, array3);
-        ingredientsListView.setAdapter(itemsAdapter);
         ingredientsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                alert();
-                Locale loc = new Locale("spa", "MEX");
-                t1.setLanguage(loc);
-                Querys querys = new Querys(rootView.getContext(), "step");
-                querys.listado(columnsTable.getColumnsTableStep(), 2, "id_step_recipe_id", getIdRecipe());
-                listado2 = querys.lista;
-                String texto = "Paso "+(position+1)+": " + listado2.get(position).toLowerCase();
-                textView2.setText(texto);
-                t1.speak(texto, TextToSpeech.QUEUE_FLUSH, null);
-                dlg = dialogBuilder.show();
+                try {
+                    alert();
+                    Locale loc = new Locale("spa", "MEX");
+                    t1.setLanguage(loc);
+                    Querys querys = new Querys(rootView.getContext(), "step");
+                    querys.listado(columnsTable.getColumnsTableStep(), 2, "id_step_recipe_id", getIdRecipe());
+                    listado2 = querys.lista;
+                    String texto = "Paso " + (position + 1) + ": " + listado2.get(position).toLowerCase();
+                    textView2.setText(texto);
+                    t1.speak(texto, TextToSpeech.QUEUE_FLUSH, null);
+                    dlg = dialogBuilder.show();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
     }
 
     public void alert(){
-        dialogView = inflater2.inflate(R.layout.ttsdialog, null);
-        dialogBuilder.setView(dialogView);
-        dialogBuilder.setCancelable(false);
-        textView = (TextView) dialogView.findViewById(R.id.txtviewdiagtitle);
-        textView.setText("Pasos de la receta");
-        textView2 = (TextView) dialogView.findViewById(R.id.txtviewdiagtext);
-        Button btn = (Button) dialogView.findViewById(R.id.btndiag);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                t1.stop();
-                dlg.dismiss();
-            }
-        });
+        try {
+            dialogView = inflater2.inflate(R.layout.ttsdialog, null);
+            dialogBuilder.setView(dialogView);
+            dialogBuilder.setCancelable(false);
+            textView = (TextView) dialogView.findViewById(R.id.txtviewdiagtitle);
+            textView.setText("Pasos de la receta");
+            textView2 = (TextView) dialogView.findViewById(R.id.txtviewdiagtext);
+            Button btn = (Button) dialogView.findViewById(R.id.btndiag);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    t1.stop();
+                    dlg.dismiss();
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == MY_DATA_CHECK_CODE) {
-            if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
-                // success, create the TTS instance
-                t1 = new TextToSpeech(getActivity(), this);
-                Locale locSpanish = new Locale("spa", "MEX");
-                t1.setLanguage(locSpanish);
-            } else {
+        try {
+            if (requestCode == MY_DATA_CHECK_CODE) {
+                if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
+                    // success, create the TTS instance
+                    t1 = new TextToSpeech(getActivity(), this);
+                    Locale locSpanish = new Locale("spa", "MEX");
+                    t1.setLanguage(locSpanish);
+                } else {
 
-                // missing data, install it
-                Intent installIntent = new Intent();
-                installIntent.setAction(
-                        TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
-                startActivity(installIntent);
+                    // missing data, install it
+                    Intent installIntent = new Intent();
+                    installIntent.setAction(
+                            TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+                    startActivity(installIntent);
+                }
             }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
