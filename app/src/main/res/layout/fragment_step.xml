@@ -15,46 +15,51 @@
         android:layout_alignParentTop="true"
         android:background="@color/colorBack">
 
+
         <ImageView
+            android:id="@+id/imageViewStep"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/step100"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="20dp"
-            android:id="@+id/imageView" />
+            android:padding="10dp"
+            android:scaleType="centerCrop" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
             android:id="@+id/recipetitle"
-            android:layout_alignTop="@+id/imageView"
-            android:layout_centerHorizontal="true" />
-
-        <TextView
+            android:padding="7dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/imageViewStep"
+            android:fontFamily="Times New Roman"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/abc_primary_text_disable_only_material_dark" />
+
+        <TextView
             android:id="@+id/recipedificult"
-            android:layout_centerVertical="true"
+            android:padding="7dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/recipetitle"
-            android:layout_alignStart="@+id/recipetitle" />
+            android:layout_below="@+id/recipetitle"
+            android:fontFamily="Times New Roman"
+            android:text="Small Text"
+            android:textColor="@color/primary_text_default_material_dark"
+            android:textSize="12sp" />
+
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/imageView2"
-            android:src="@drawable/abc_btn_rating_star_on_mtrl_alpha"
-            android:layout_marginRight="21dp"
-            android:layout_marginEnd="21dp"
-            android:layout_alignTop="@+id/recipetitle"
+            android:layout_alignRight="@+id/recipedificult"
+            android:layout_below="@+id/recipedificult"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_marginEnd="21dp"
+            android:layout_marginRight="21dp"
+            android:src="@drawable/abc_btn_rating_star_on_mtrl_alpha" />
 
     </RelativeLayout>
 
@@ -66,8 +71,7 @@
         app:tabIndicatorColor="@color/colorAccent"
         app:tabMode="scrollable"
         app:tabSelectedTextColor="@color/colorPrimaryDark"
-        app:tabTextColor="@color/colorBack"
-        app:tabContentStart="70dp"/>
+        app:tabTextColor="@color/colorBack" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager2"

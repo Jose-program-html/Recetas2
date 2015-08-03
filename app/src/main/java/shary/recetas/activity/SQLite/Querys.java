@@ -55,6 +55,7 @@ public class Querys {
         lista = new ArrayList<String>();
         lista1 = new ArrayList<String>();
         lista2 = new ArrayList<String>();
+        lista3 = new ArrayList<String>();
         try {
             String selectQuery = "SELECT  *FROM " + this.tableName + " WHERE " + clausula + "=?";
             ;
@@ -71,6 +72,7 @@ public class Querys {
                     lista1.add(valor[3]);
                     try {
                         lista2.add(valor[8]);
+                        lista3.add(valor[9]);
                     }catch (Exception e){
                         e.printStackTrace();
                     }
