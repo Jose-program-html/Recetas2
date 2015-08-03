@@ -123,7 +123,6 @@ public class Tab_2_Step extends Fragment implements TextToSpeech.OnInitListener 
         ingredientsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                try {
                     alert();
                     Locale loc = new Locale("spa", "MEX");
                     t1.setLanguage(loc);
@@ -134,9 +133,6 @@ public class Tab_2_Step extends Fragment implements TextToSpeech.OnInitListener 
                     textView2.setText(texto);
                     t1.speak(texto, TextToSpeech.QUEUE_FLUSH, null);
                     dlg = dialogBuilder.show();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
             }
         });
     }

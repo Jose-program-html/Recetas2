@@ -34,18 +34,22 @@ public class Tab_Otros extends Fragment {
     }
 
     public void agregar() {
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("ENTRO OTHER");
-                cadena = name.getText().toString() + "-" + typeIng.getText().toString();
-                name.setText("");
-                typeIng.setText("");
-                System.out.println(cadena);
-                Querys querys = new Querys(rootView.getContext(), "ingredients_other");
-                querys.insertar(columnsTable.getColumnsTableIngredientsOther(), cadena);
-            }
-        });
+        try {
+            add.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    System.out.println("ENTRO OTHER");
+                    cadena = name.getText().toString() + "-" + typeIng.getText().toString();
+                    name.setText("");
+                    typeIng.setText("");
+                    System.out.println(cadena);
+                    Querys querys = new Querys(rootView.getContext(), "ingredients_other");
+                    querys.insertar(columnsTable.getColumnsTableIngredientsOther(), cadena);
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 

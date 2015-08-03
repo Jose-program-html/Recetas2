@@ -42,40 +42,48 @@ public class Tab_5 extends Fragment {
     }
 
     public void carnes() {
-        Querys querys = new Querys(rootView.getContext(), "ingredients");
-        querys.listadoDistict("nombre", 0, "clasificacion", "CARNES");
-        listado = querys.lista;
+        try {
+            Querys querys = new Querys(rootView.getContext(), "ingredients");
+            querys.listadoDistict("nombre", 0, "clasificacion", "CARNES");
+            listado = querys.lista;
 
-        ArrayAdapter<String> itemsAdapter =
-                new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_list_item_multiple_choice, listado);
-        ingredientsListView.setAdapter(itemsAdapter);
-        ingredientsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        ingredientsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CheckedTextView checkedTextView = ((CheckedTextView) view);
-                if (checkedTextView.isChecked() == true) {
-                    verificar();
-                } else {
-                    verificar();
+            ArrayAdapter<String> itemsAdapter =
+                    new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_list_item_multiple_choice, listado);
+            ingredientsListView.setAdapter(itemsAdapter);
+            ingredientsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+            ingredientsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    CheckedTextView checkedTextView = ((CheckedTextView) view);
+                    if (checkedTextView.isChecked() == true) {
+                        verificar();
+                    } else {
+                        verificar();
+                    }
                 }
-            }
-        });
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 
     public void verificar() {
-        carnes = "";
-        for (int i = 0; i < listado.size(); i++) {
-            if (ingredientsListView.getCheckedItemPositions().get(i) == true) {
-                carnes += ingredientsListView.getItemAtPosition(i).toString() + "-";
+        try {
+            carnes = "";
+            for (int i = 0; i < listado.size(); i++) {
+                if (ingredientsListView.getCheckedItemPositions().get(i) == true) {
+                    carnes += ingredientsListView.getItemAtPosition(i).toString() + "-";
+                }
             }
+            variables.setCarne(carnes);
+            System.out.println("carnes  " + variables.getCarne());
+            sharedPreferences = rootView.getContext().getSharedPreferences("Ingredients", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("Carnes", variables.getCarne());
+            editor.commit();
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        variables.setCarne(carnes);
-        System.out.println("carnes  " + variables.getCarne());
-        sharedPreferences = rootView.getContext().getSharedPreferences("Ingredients", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("Carnes", variables.getCarne());
-        editor.commit();
     }
 }

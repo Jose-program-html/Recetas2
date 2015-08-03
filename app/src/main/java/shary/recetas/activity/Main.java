@@ -70,45 +70,49 @@ public class Main extends ActionBarActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
-                int x = menuItem.getItemId();
-                String title = menuItem.getTitle().toString();
-                titulo = title;
-                switch (x) {
-                    case R.id.navigation_sub_item_1:
-                        title = getString(R.string.title_home);
-                        Snackbar.make(findViewById(android.R.id.content), title, Snackbar.LENGTH_SHORT).show();
-                        fragment = new HomeFragment();
-                        break;
-                    case R.id.navigation_sub_item_2:
-                        title = getString(R.string.title_recetas);
-                        Snackbar.make(findViewById(android.R.id.content), title, Snackbar.LENGTH_SHORT).show();
-                        fragment = new RecetasFragment();
-                        break;
-                    case R.id.navigation_sub_item_3:
-                        title = getString(R.string.title_ingredientes);
-                        Snackbar.make(findViewById(android.R.id.content), title, Snackbar.LENGTH_SHORT).show();
-                        fragment = new IngredientesFragment();
-                        break;
-                    case R.id.navigation_sub_item_4:
-                        title = getString(R.string.title_favoritos);
-                        Snackbar.make(findViewById(android.R.id.content), title, Snackbar.LENGTH_SHORT).show();
-                        fragment = new FavoritosFragment();
-                        break;
-                    default:
-                        break;
+                try {
+                    int x = menuItem.getItemId();
+                    String title = menuItem.getTitle().toString();
+                    titulo = title;
+                    switch (x) {
+                        case R.id.navigation_sub_item_1:
+                            title = getString(R.string.title_home);
+                            Snackbar.make(findViewById(android.R.id.content), title, Snackbar.LENGTH_SHORT).show();
+                            fragment = new HomeFragment();
+                            break;
+                        case R.id.navigation_sub_item_2:
+                            title = getString(R.string.title_recetas);
+                            Snackbar.make(findViewById(android.R.id.content), title, Snackbar.LENGTH_SHORT).show();
+                            fragment = new RecetasFragment();
+                            break;
+                        case R.id.navigation_sub_item_3:
+                            title = getString(R.string.title_ingredientes);
+                            Snackbar.make(findViewById(android.R.id.content), title, Snackbar.LENGTH_SHORT).show();
+                            fragment = new IngredientesFragment();
+                            break;
+                        case R.id.navigation_sub_item_4:
+                            title = getString(R.string.title_favoritos);
+                            Snackbar.make(findViewById(android.R.id.content), title, Snackbar.LENGTH_SHORT).show();
+                            fragment = new FavoritosFragment();
+                            break;
+                        default:
+                            break;
+                    }
+
+                    if (fragment != null) {
+
+                        FragmentManager fragmentManager = getFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.add(R.id.container_body, fragment);
+                        fragmentTransaction.commit();
+                        getSupportActionBar().setTitle(title);
+                    }
+
+                    Log.d("MENU ITEM", menuItem.getTitle().toString());
+                    drawerLayout.closeDrawers();
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
-
-                if (fragment != null) {
-
-                    FragmentManager fragmentManager = getFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.add(R.id.container_body, fragment);
-                    fragmentTransaction.commit();
-                    getSupportActionBar().setTitle(title);
-                }
-
-                Log.d("MENU ITEM", menuItem.getTitle().toString());
-                drawerLayout.closeDrawers();
                 return true;
             }
         });
@@ -117,27 +121,40 @@ public class Main extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        try {
+            getMenuInflater().inflate(R.menu.menu_main, menu);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                drawerLayout.openDrawer(GravityCompat.START);
-                return true;
+        try {
+            switch (item.getItemId()) {
+                case android.R.id.home:
+                    drawerLayout.openDrawer(GravityCompat.START);
+                    return true;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return super.onOptionsItemSelected(item);
     }
 
     public boolean checkConnectivity() {
-        ConnectivityManager cm =
-                (ConnectivityManager) this.getSystemService(this.CONNECTIVITY_SERVICE);
+        boolean isConnected = false;
+        try {
+            ConnectivityManager cm =
+                    (ConnectivityManager) this.getSystemService(this.CONNECTIVITY_SERVICE);
 
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
+            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+            isConnected = activeNetwork != null &&
+                    activeNetwork.isConnectedOrConnecting();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return isConnected;
     }
 

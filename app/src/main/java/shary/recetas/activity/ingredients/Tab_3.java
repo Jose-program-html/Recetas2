@@ -41,25 +41,29 @@ public class Tab_3 extends Fragment {
     }
 
     public void cereal() {
-        Querys querys = new Querys(rootView.getContext(), "ingredients");
-        querys.listadoDistict("nombre", 0, "clasificacion", "CEREAL");
-        listado = querys.lista;
+        try {
+            Querys querys = new Querys(rootView.getContext(), "ingredients");
+            querys.listadoDistict("nombre", 0, "clasificacion", "CEREAL");
+            listado = querys.lista;
 
-        ArrayAdapter<String> itemsAdapter =
-                new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_list_item_multiple_choice, listado);
-        ingredientsListView.setAdapter(itemsAdapter);
-        ingredientsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        ingredientsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CheckedTextView checkedTextView = ((CheckedTextView) view);
-                if (checkedTextView.isChecked() == true) {
-                    verificar();
-                } else {
-                    verificar();
+            ArrayAdapter<String> itemsAdapter =
+                    new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_list_item_multiple_choice, listado);
+            ingredientsListView.setAdapter(itemsAdapter);
+            ingredientsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+            ingredientsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    CheckedTextView checkedTextView = ((CheckedTextView) view);
+                    if (checkedTextView.isChecked() == true) {
+                        verificar();
+                    } else {
+                        verificar();
+                    }
                 }
-            }
-        });
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 

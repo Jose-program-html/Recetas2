@@ -41,40 +41,48 @@ public class Tab_Other_Ingredient extends Fragment {
     }
 
     public void other() {
-        Querys querys = new Querys(rootView.getContext(), "ingredients_other");
-        querys.listadoDistictNotClause("nombre", 0);
-        listado = querys.lista;
+        try {
+            Querys querys = new Querys(rootView.getContext(), "ingredients_other");
+            querys.listadoDistictNotClause("nombre", 0);
+            listado = querys.lista;
 
-        ArrayAdapter<String> itemsAdapter =
-                new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_list_item_multiple_choice, listado);
-        ingredientsListView.setAdapter(itemsAdapter);
-        ingredientsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        ingredientsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CheckedTextView checkedTextView = ((CheckedTextView) view);
-                if (checkedTextView.isChecked() == true) {
-                    verificar();
-                } else {
-                    verificar();
+            ArrayAdapter<String> itemsAdapter =
+                    new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_list_item_multiple_choice, listado);
+            ingredientsListView.setAdapter(itemsAdapter);
+            ingredientsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+            ingredientsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    CheckedTextView checkedTextView = ((CheckedTextView) view);
+                    if (checkedTextView.isChecked() == true) {
+                        verificar();
+                    } else {
+                        verificar();
+                    }
                 }
-            }
-        });
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void verificar() {
-        otros = "";
-        for (int i = 0; i < listado.size(); i++) {
-            if (ingredientsListView.getCheckedItemPositions().get(i) == true) {
-                otros += ingredientsListView.getItemAtPosition(i).toString() + "-";
+        try {
+            otros = "";
+            for (int i = 0; i < listado.size(); i++) {
+                if (ingredientsListView.getCheckedItemPositions().get(i) == true) {
+                    otros += ingredientsListView.getItemAtPosition(i).toString() + "-";
+                }
             }
-        }
-        variables.setOtro(otros);
-        System.out.println("otros tab OTRO " + variables.getOtro());
+            variables.setOtro(otros);
+            System.out.println("otros tab OTRO " + variables.getOtro());
 
-        sharedPreferences = rootView.getContext().getSharedPreferences("Ingredients", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("Extras", variables.getOtro());
-        editor.commit();
+            sharedPreferences = rootView.getContext().getSharedPreferences("Ingredients", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("Extras", variables.getOtro());
+            editor.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
