@@ -29,16 +29,49 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Consejos de cocina"
         android:id="@+id/textView"
+        android:fontFamily="Times New Roman"
         android:layout_gravity="center_horizontal"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="30dp" />
 
-    <VideoView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/videoView"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="10dp" />
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView2" >
 
+        <LinearLayout
+            android:id="@+id/navcontainer"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <VideoView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/videoView1"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="5dp" />
 
+            <VideoView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/videoView2"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="5dp" />
+
+            <VideoView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/videoView3"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="5dp" />
+
+            <VideoView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/videoView4"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="5dp" />
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
