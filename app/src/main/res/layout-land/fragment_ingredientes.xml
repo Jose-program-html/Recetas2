@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/windowBackground"
+    android:configChanges="orientation|screenSize"
+    android:orientation="vertical"
+    tools:context="shary.recetas.activity.IngredientesFragment">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow>
+
+            <TableLayout>
+
+                <RelativeLayout
+                    android:id="@+id/nav_header_container"
+                    android:layout_width="146dp"
+                    android:layout_height="374dp"
+                    android:layout_alignParentTop="true"
+                    android:background="@color/colorBack">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_centerInParent="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ingredients100" />
+                </RelativeLayout>
+
+            </TableLayout>
+
+            <TableLayout>
+
+                <TableRow>
+
+                    <android.support.design.widget.TabLayout
+                        android:id="@+id/sliding_tabs"
+                        android:layout_width="421dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        app:tabIndicatorColor="@color/colorAccent"
+                        app:tabMode="scrollable"
+                        app:tabSelectedTextColor="@color/colorPrimaryDark"
+                        app:tabTextColor="@color/colorBack" />
+                </TableRow>
+
+                <TableRow>
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/viewpager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/windowBackground" />
+                </TableRow>
+            </TableLayout>
+        </TableRow>
+    </TableLayout>
+</LinearLayout>
