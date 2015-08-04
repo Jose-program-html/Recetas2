@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import shary.recetas.R;
 import shary.recetas.activity.RecyclerRecetaBusqueda;
@@ -65,12 +66,17 @@ public class Tab_Busqueda extends Fragment {
                 buscar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        FragmentManager fragmentManager = getFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        Fragment fragment = new RecyclerRecetaBusqueda();
-                        fragmentTransaction.replace(R.id.container_body, fragment);
-                        fragmentTransaction.commit();
-                        ((ActionBarActivity) rootView.getContext()).getSupportActionBar().setTitle("Busqueda Receta");
+                        try {
+                            FragmentManager fragmentManager = getFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            Fragment fragment = new RecyclerRecetaBusqueda();
+                            fragmentTransaction.replace(R.id.container_body, fragment);
+                            fragmentTransaction.commit();
+                            ((ActionBarActivity) rootView.getContext()).getSupportActionBar().setTitle("Busqueda Receta");
+                        }catch (Exception e){
+                            e.printStackTrace();
+                            Toast.makeText(rootView.getContext(), "No hay ingredientes para buscar", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
 

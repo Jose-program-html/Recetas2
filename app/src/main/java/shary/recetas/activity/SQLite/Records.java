@@ -59,8 +59,12 @@ public class Records {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e(TAG, error.getMessage());
-                System.out.println("No se pudo obtener el Listado de recetas");
+                try {
+                    Log.e(TAG, error.getMessage());
+                    System.out.println("No se pudo obtener el Listado de recetas");
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
     }

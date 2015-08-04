@@ -76,7 +76,7 @@ public class RecyclerRecetaBusqueda extends Fragment {
         System.out.println("TOTAL " + listado.size());
         List items = new ArrayList();
         for (int i = 0; i < array3.size(); i++) {
-            String url = "http://192.168.0.7:9000".concat(array5.get(i).toString().toLowerCase());
+            String url = getString(R.string.api_endpoint).concat(array5.get(i).toString().toLowerCase());
             System.out.println("URL " + url);
             items.add(new RecetaAux(url, array3.get(i).toString(), array4.get(i).toString()));
         }

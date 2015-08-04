@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import shary.recetas.R;
 import shary.recetas.activity.SQLite.ColumnsTable;
@@ -38,13 +39,18 @@ public class Tab_Otros extends Fragment {
             add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    System.out.println("ENTRO OTHER");
-                    cadena = name.getText().toString() + "-" + typeIng.getText().toString();
-                    name.setText("");
-                    typeIng.setText("");
-                    System.out.println(cadena);
-                    Querys querys = new Querys(rootView.getContext(), "ingredients_other");
-                    querys.insertar(columnsTable.getColumnsTableIngredientsOther(), cadena);
+                    try {
+                        System.out.println("ENTRO OTHER");
+                        cadena = name.getText().toString() + "-" + typeIng.getText().toString();
+                        name.setText("");
+                        typeIng.setText("");
+                        System.out.println(cadena);
+                        Querys querys = new Querys(rootView.getContext(), "ingredients_other");
+                        querys.insertar(columnsTable.getColumnsTableIngredientsOther(), cadena);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                        Toast.makeText(rootView.getContext(),"Agregue ingredientes",Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         }catch (Exception e){

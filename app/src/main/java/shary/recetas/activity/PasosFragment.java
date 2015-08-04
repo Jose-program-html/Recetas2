@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -109,14 +110,8 @@ public class PasosFragment extends Fragment {
     }
 
     public void getRecipe() {
-        Querys querys = new Querys(rootView.getContext(), "recipe");
-        querys.listado(columnsTable.getColumnsTableRecipe(), 1, "id", getIdRecipe());
-        listado = querys.lista;
-        listado2 = querys.lista1;
-        listado3 = querys.lista2;
-        listado4 = querys.lista3;
-
-        String url = "http://192.168.0.7:9000".concat(listado3.get(0).toString().toLowerCase());
+        querys();
+        String url = getString(R.string.api_endpoint).concat(listado3.get(0).toString().toLowerCase());
         System.out.println("FAV " + listado4.get(0).toString());
         Picasso.with(rootView.getContext()).load(url).into(imageView);
         recipeTitle.setText(listado.get(0).toString());
@@ -125,21 +120,38 @@ public class PasosFragment extends Fragment {
         imageView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (listado4.get(0).toString().equals("0")) {
-                    Drawable myDrawable = getResources().getDrawable(R.drawable.star24);
-                    imageView2.setImageDrawable(myDrawable);
-                    Querys querys = new Querys(rootView.getContext(), "recipe");
-                    querys.update("favorito", "1", 1, "id", getIdRecipe());
-                    System.out.println("FAV AMARILLO");
-                } else {
-                    Drawable myDrawable = getResources().getDrawable(R.drawable.abc_btn_rating_star_on_mtrl_alpha);
-                    imageView2.setImageDrawable(myDrawable);
-                    System.out.println("FAV ");
+                try {
+                    querys();
+                    if (listado4.get(0).toString().equals("0")) {
+                        Drawable myDrawable = getResources().getDrawable(R.drawable.star24);
+                        imageView2.setImageDrawable(myDrawable);
+                        Querys querys = new Querys(rootView.getContext(), "recipe");
+                        querys.update("favorito", "1", 1, "id", getIdRecipe());
+                        Toast.makeText(rootView.getContext(), recipeTitle.getText() + " Agregado a favoritos", Toast.LENGTH_SHORT).show();
+                        System.out.println("FAV AMARILLO");
+                    } else {
+                        Querys querys = new Querys(rootView.getContext(), "recipe");
+                        querys.update("favorito", "0", 1, "id", getIdRecipe());
+                        Drawable myDrawable = getResources().getDrawable(R.drawable.abc_btn_rating_star_on_mtrl_alpha);
+                        imageView2.setImageDrawable(myDrawable);
+                        Toast.makeText(rootView.getContext(), recipeTitle.getText() + " Retirado de favoritos", Toast.LENGTH_SHORT).show();
+                        System.out.println("FAV ");
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+
                 }
-
-
             }
         });
+    }
+
+    public void querys(){
+        Querys querys = new Querys(rootView.getContext(), "recipe");
+        querys.listado(columnsTable.getColumnsTableRecipe(), 1, "id", getIdRecipe());
+        listado = querys.lista;
+        listado2 = querys.lista1;
+        listado3 = querys.lista2;
+        listado4 = querys.lista3;
     }
 
 }

@@ -1,21 +1,27 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="80dp"
+    xmlns:app="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
     card_view:cardBackgroundColor="@color/colorAccent"
-    card_view:cardCornerRadius="4dp"
-    card_view:cardElevation="4dp"
+    card_view:contentPadding="0dp"
+    card_view:cardElevation="3dp"
+    card_view:cardCornerRadius="6dp"
     card_view:cardUseCompatPadding="true">
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp">
 
-        <ImageView
+        <com.pkmmte.view.CircularImageView
             android:id="@+id/imagen"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:scaleType="centerCrop" />
+            app:border="true"
+            app:border_color="#EEEEEE"
+            app:border_width="4dp"
+            app:shadow="true" />
 
         <TextView
             android:id="@+id/nombre"
@@ -39,25 +45,5 @@
             android:text="Small Text"
             android:textColor="@color/primary_text_default_material_dark"
             android:textSize="12sp" />
-
-        <!-- <View
-             android:id="@+id/linea"
-             android:layout_width="wrap_content"
-             android:layout_height="1dp"
-             android:layout_above="@+id/compartir"
-             android:layout_toRightOf="@+id/imagen"
-             android:background="#ffd5d5d5">
-
-         </View>
-
-         <ImageView
-             android:id="@+id/compartir"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_alignParentBottom="true"
-             android:layout_alignParentRight="true"
-             android:background="@color/material_blue_grey_800"
-             android:src="@android:drawable/ic_menu_share" />-->
-
     </RelativeLayout>
 </android.support.v7.widget.CardView>

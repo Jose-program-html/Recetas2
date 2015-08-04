@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pkmmte.view.CircularImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -58,7 +59,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecetaViewHolder> 
     }
 
     public class RecetaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        ImageView recipePhoto;
+        CircularImageView recipePhoto;
         TextView recipeName;
         TextView recipeCategory;
 
@@ -66,10 +67,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RecetaViewHolder> 
             super(itemView);
             recipeName = (TextView) itemView.findViewById(R.id.nombre);
             recipeCategory = (TextView) itemView.findViewById(R.id.categoria);
-            recipePhoto = (ImageView) itemView.findViewById(R.id.imagen);
+            recipePhoto = (CircularImageView)itemView.findViewById(R.id.imagen);
             itemView.setTag(this);
             itemView.setOnClickListener(this);
-
         }
 
         @Override

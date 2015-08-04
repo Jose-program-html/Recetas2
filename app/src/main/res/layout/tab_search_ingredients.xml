@@ -56,18 +56,17 @@
 
             <TableRow>
 
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/btn_search"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="1"
-                    android:layout_gravity="bottom|right"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginRight="8dp"
-                    android:backgroundTint="@color/tabsScrollColor"
-                    android:src="@drawable/abc_ic_search_api_mtrl_alpha" />
             </TableRow>
         </TableLayout>
 
     </android.support.v7.widget.CardView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btn_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:backgroundTint="@color/tabsScrollColor"
+        android:src="@drawable/abc_ic_search_api_mtrl_alpha" />
 </RelativeLayout>
