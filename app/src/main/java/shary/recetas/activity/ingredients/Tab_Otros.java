@@ -47,7 +47,8 @@ public class Tab_Otros extends Fragment {
                         System.out.println(cadena);
                         Querys querys = new Querys(rootView.getContext(), "ingredients_other");
                         querys.insertar(columnsTable.getColumnsTableIngredientsOther(), cadena);
-                    }catch (Exception e){
+                    }catch
+                            (Exception e){
                         e.printStackTrace();
                         Toast.makeText(rootView.getContext(),"Agregue ingredientes",Toast.LENGTH_SHORT).show();
                     }
